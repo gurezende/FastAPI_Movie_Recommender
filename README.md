@@ -16,6 +16,7 @@ It uses the MovieLens 100k dataset to generate movie recommendations based on us
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [License](#license)
+- [About](#about)
 
 
 ## Dataset
@@ -32,22 +33,22 @@ Find out more in the Readme file in the \data\ folder.
 
 ## Project Structure
 
-movie-recommender/ 
-├── backend/ # FastAPI backend 
-│ ├── myapp/ # FastAPI application package 
-│ │ ├── init.py 
-│ │ ├── main.py # FastAPI app 
-│ │ ├── database.py # Database connection and session setup 
-│ │ ├── models.py # SQLAlchemy models 
-│ │ ├── recommender.py # Recommendation engine 
-│ │ └── schemas.py # Pydantic schemas for validation  
-│ ├── sql_load.py # Script to create/load database tables and initial data 
-│ ├── requirements.txt # Python dependencies for backend 
-│ └── Dockerfile.backend # Dockerfile for FastAPI backend 
-├── streamlit_app.py # Streamlit application 
-├── requirements.txt # Python dependencies for Streamlit app 
-└── Dockerfile # Dockerfile for Streamlit app 
-├── docker-compose.yml # Docker Compose file to run both backend and frontend 
+movie-recommender/ <br>
+├── backend/ # FastAPI backend <br>
+│ ├── myapp/ # FastAPI application package <br>
+│ │ ├── init.py <br>
+│ │ ├── main.py # FastAPI app <br>
+│ │ ├── database.py # Database connection and session setup <br>
+│ │ ├── models.py # SQLAlchemy models <br>
+│ │ ├── recommender.py # Recommendation engine <br>
+│ │ └── schemas.py # Pydantic schemas for validation  <br>
+│ ├── sql_load.py # Script to create/load database tables and initial data <br>
+│ ├── requirements.txt # Python dependencies for backend <br>
+│ └── Dockerfile.backend # Dockerfile for FastAPI backend <br>
+├── streamlit_app.py # Streamlit application <br>
+├── requirements.txt # Python dependencies for Streamlit app <br>
+└── Dockerfile # Dockerfile for Streamlit app <br>
+├── docker-compose.yml # Docker Compose file to run both backend and frontend <br>
 └
 
 
@@ -128,25 +129,48 @@ This command will:
 
 Access the Services:
  
-FastAPI Backend: http://localhost:8000
+FastAPI Backend: http://localhost:8000 <br>
 Streamlit Frontend: http://localhost:8501
 
 ## API Endpoints
 The FastAPI backend exposes several endpoints. Some key endpoints are:
 
-GET /
+`GET /`
 Returns a welcome message.
 
-GET /recommend/?movie=<movie_name>
+``GET /recommend/?movie=<movie_name>`
 Returns movie recommendations for the given movie.
 
-POST /click/?movie_id=<movie_id>
+`POST /click/?movie_id=<movie_id>`
 Registers a click for the specified movie recommendation.
 
-GET /click_stats/?movie_id=<movie_id>
+`GET /click_stats/?movie_id=<movie_id>`
 Returns the click percentage for the specified movie.
 
-POST /add_movie/
-Accepts a JSON payload to add a new movie. (Example payload: { "movie_id": 123, "title": "New Movie Title" })
+`POST /add_movie/`
+Accepts a JSON payload to add a new movie.
 
 You can test these endpoints using the interactive Swagger docs at http://localhost:8000/docs.
+
+## Troubleshooting
+
+* New Movies Not Appearing in Recommendations:
+If you add a new movie but it doesn't appear in recommendations, the recommendation engine might be caching data loaded at startup. Consider implementing a refresh mechanism in the backend to reload data after new entries.
+
+* Connection Issues Between Containers:
+Ensure that the Streamlit app uses the correct API URL. In `streamlit_app.py`, set:
+
+```python
+API_URL = os.getenv("API_URL", "http://backend:8000")
+```
+
+And confirm the service name in `docker-compose.yml` is set to `backend`.
+
+Module Import Errors:
+Make sure your Dockerfile copies all required files and that your working directory and PYTHONPATH are correctly set.
+
+## License
+This project is licensed under the MIT License.
+
+## About
+This project was created by [Gustavo R. Santos](https://gustavorsantos.me)
