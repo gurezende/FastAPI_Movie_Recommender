@@ -1,16 +1,18 @@
 # imports
 import streamlit as st
 import requests
-from app.recommender import get_movies_list
+from myapp import recommender
+
 
 # Base URL for your FastAPI server
-API_URL = "http://127.0.0.1:8000"
+# API_URL = "http://127.0.0.1:8000"
+API_URL = "http://backend:8000" #when using docker
 
 st.title("Movie Recommender")
 
 # Input for movie name and transform to lowercase
 movie_input = st.selectbox(label="Select a Movie", index=None,
-                           options=get_movies_list(),
+                           options=recommender.get_movies_list(),
                            help="Select a movie to get recommendations") 
 
 if movie_input:
@@ -135,13 +137,16 @@ with st.sidebar:
     st.title("Add a New Movie to the Database")
     
     # Input for movie name and transform to lowercase
-    new_movie = st.text_input("New Movie name:").lower()
-    new_movie = new_movie.lower()
+    new_movie = st.text_input("New Movie name:")
+    if new_movie:
+        new_movie = str.lower(new_movie)
     new_category = st.selectbox(index=None, label="New Movie Category", help="Select the movie category",
                                   options=["Action", "Adventure", "Animation", "Children", "Comedy", "Crime", "Documentary",
                                             "Drama", "Fantasy", "Film-Noir", "Horror", "Musical", "Mystery", "Romance",
                                             "Sci-Fi", "Thriller", "War", "Western"])
-    
+    if new_category:
+        new_category = str.lower(new_category)
+
     new_release_dt = st.text_input("Release Date DD-Mth-YYYY", value='01-Jan-2000')
     new_rating = st.number_input("Rating", min_value=1.0, max_value=5.0, value=3.0, step=0.1)
     

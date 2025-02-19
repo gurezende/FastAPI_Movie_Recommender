@@ -1,8 +1,8 @@
 # Imports
 import pandas as pd
 from sqlalchemy.orm import Session
-from app.database import SessionLocal, engine
-from app.models import Base, Movie, Rating
+from myapp.database import SessionLocal, engine
+from myapp.models import Base, Movie, Rating
 
 # Create if not exists
 Base.metadata.create_all(bind=engine)
