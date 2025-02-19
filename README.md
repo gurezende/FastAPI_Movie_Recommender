@@ -1,5 +1,7 @@
 # Movie Recommender
 
+![](img/movie-recommendation-system.jpg)
+
 This project is a movie recommender system built with FastAPI, SQLite (*or PostgreSQL*), and Streamlit. <br>
 It uses the MovieLens 100k dataset to generate movie recommendations based on user ratings. In addition, the app tracks how many times each recommendation is clicked. You can also add new movies via an API endpoint.
 
