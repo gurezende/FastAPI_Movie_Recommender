@@ -5,8 +5,8 @@ from myapp import recommender
 
 
 # Base URL for your FastAPI server
-# API_URL = "http://127.0.0.1:8000"
-API_URL = "http://backend:8000" #when using docker
+API_URL = "http://127.0.0.1:8000"
+# API_URL = "http://backend:8000" #when using docker
 
 st.title("Movie Recommender")
 

@@ -89,7 +89,7 @@ pip install -r requirements.txt
 
 3. **Run FastAPI**
 ```bash
-uvicorn app.main:app --reload
+uvicorn myapp.main:app --reload
 ```
 The FastAPI backend will be available at http://localhost:8000.
 

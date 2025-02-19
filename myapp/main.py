@@ -29,6 +29,16 @@ def read_root():
 @app.get("/recommend/")
 def get_recommendations(movie: str, db: Session = Depends(get_db)):
     # Get the recommendations
+    """
+    Get movie recommendations given a movie title.
+
+    Args:
+        movie (str): movie title to get recommendations for
+        db (Session, optional): database session. Defaults to Depends(get_db).
+
+    Returns:
+        dict: containing the movie title and a list of recommendations
+    """
     rec_titles = recommender.get_recommendations(movie, movies, similarity_df)
     
     # queried_movie_id = movies[movies['title'] == movie]['movie_id'].values[0]
@@ -61,7 +71,16 @@ def get_recommendations(movie: str, db: Session = Depends(get_db)):
 # Click tracking endpoint
 @app.post("/click/")
 def update_click(movie_id: str, db: Session = Depends(get_db)):
-    '''Function to update the click counter for a movie. If the recommendation is clicked, it adds one to the click counter. '''
+    """
+    Updates the click count for a given movie_id.
+
+    Args:
+        movie_id (str): the movie_id to update the click count for
+        db (Session, optional): database session. Defaults to Depends(get_db).
+
+    Returns:
+        dict: containing the movie_id and the updated click count
+    """
     record = db.query(ClickStats).filter(ClickStats.movie_id == movie_id).first()
     if not record:
         record = ClickStats(movie_id=movie_id, 
@@ -76,15 +95,47 @@ def update_click(movie_id: str, db: Session = Depends(get_db)):
 # Endpoint to fetch click statistics (click percentage)
 @app.get("/click_stats/")
 def get_click_stats(movie_id: str, db: Session = Depends(get_db)):
+    """Returns the click percentage for the given movie_id.
+
+    Args:
+        movie_id (str): The movie_id to retrieve click percentage for.
+        db (Session): The database session object.
+
+
+    Returns:
+        dict: A dictionary with the movie_id and the click percentage.
+    """
     record = db.query(ClickStats).filter(ClickStats.movie_id == movie_id).first()
     if not record or record.recommendations_shown == 0:
         return {"movie_id": movie_id, "click_percentage": 0}
     percentage = (record.clicks / record.recommendations_shown) * 100
     return {"movie_id": movie_id, "click_percentage": percentage}
 
+
 @app.post("/add_movie/")
 def add_movie(movie_title:str, category: str, release_date: str, user_rating: float, db: Session = Depends(get_db)):
+    """
+    Adds a new movie to the database.
+
+    This endpoint takes the title, category, release date, and user rating of a movie, 
+    checks if the movie already exists in the database, and if not, adds it as a new entry. 
+    It also creates a corresponding rating for the new movie.
+
+    Parameters:
+    - movie_title (str): The title of the movie to add.
+    - category (str): The category or genre of the movie.
+    - release_date (str): The release date of the movie in 'DD-Mth-YYYY' format.
+    - user_rating (float): The user-provided rating for the movie.
+    - db (Session): The database session used for the operation.
+
+    Returns:
+    - dict: A message indicating the result of the operation.
+
+    Raises:
+    - HTTPException: If the movie already exists in the database.
+    """
     # Check if the movie already exists
+    
     existing_movie = db.query(Movie).filter(Movie.title == movie_title).first()
     if existing_movie:
         raise HTTPException(status_code=400, detail="Movie already exists")

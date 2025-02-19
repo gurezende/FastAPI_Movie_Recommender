@@ -4,10 +4,10 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from myapp.database import engine
 
-# Function to load data to the postgres database
+# Function to load data from the SQLite database
 def load_data():
     """
-    Loads movies and ratings data from PostgreSQL into Pandas DataFrames.
+    Loads movies and ratings data from SQLite into Pandas DataFrames.
     """
     # Load movies from the movies table
     movies_df = pd.read_sql("SELECT * FROM movies", con=engine)
