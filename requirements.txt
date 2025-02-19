@@ -1,0 +1,8 @@
+fastapi>=0.115.8
+numpy>=2.2.3
+pandas>=2.2.3
+psycopg2-binary>=2.9.10
+scikit-learn>=1.6.1
+sqlalchemy>=2.0.38
+streamlit>=1.42.1
+uvicorn>=0.34.0

@@ -1,0 +1,29 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    environment:
+      # You can add environment variables here if needed
+      - DATABASE_URL=sqlite:///movie_recommender.db
+    restart: unless-stopped
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    environment:
+      # If your streamlit app needs to know the backend URL, set it here.
+      # Note: In Docker Compose, the backend can be reached via the service name.
+      - API_URL=http://backend:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
