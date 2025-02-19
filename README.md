@@ -175,3 +175,33 @@ This project is licensed under the MIT License.
 
 ## About
 This project was created by [Gustavo R. Santos](https://gustavorsantos.me)
+
+## Project Flow
+
+```mermaid
+flowchart TB
+    subgraph Front-End
+        direction TB
+        User[/Select a Movie/]
+    end
+
+    subgraph Back-End
+        direction LR
+        Recommender(Recommends<br>Similar Movies) --> Return_Recommendations
+    end
+
+    subgraph Saving-to-DB
+        direction LR
+        Click_Recom[Click on<br>Recommendation] --> |Saves Click<br>Counts to DB| DB[(SQLite DB)]
+        style DB fill: #300
+    end
+
+
+    subgraph Add-New-Movie
+        direction TB
+        Front_End[/Front End<br>Movie Not Listed/] --> |User Add<br>New Movie<br>to DB| DB[(SQLite DB)]
+        style DB fill: #300
+    end
+
+Front-End --> Back-End --> Saving-to-DB
+```
