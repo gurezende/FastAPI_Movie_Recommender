@@ -4,10 +4,6 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from app.database import engine
 
-# Path to your dataset files
-RATINGS_PATH = "./data/u.data"
-MOVIES_PATH = "./data/u.item"
-
 # Function to load data to the postgres database
 def load_data():
     """
