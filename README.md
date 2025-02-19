@@ -55,14 +55,14 @@ movie-recommender/
 
 - Docker & Docker Compose
 - Python 3.12 if running locally without Docker
-`fastapi` >= 0.115.8
-`numpy` >= 2.2.3
-`pandas` >= 2.2.3
-`psycopg2-binary` >= 2.9.10
-`scikit-learn` >= 1.6.1
-`sqlalchemy` >= 2.0.38
-`streamlit` >= 1.42.1
-`uvicorn` >= 0.34.0
+- `fastapi` >= 0.115.8
+- `numpy` >= 2.2.3
+- `pandas` >= 2.2.3
+- `psycopg2-binary` >= 2.9.10
+- `scikit-learn` >= 1.6.1
+- `streamlit` >= 1.42.1
+- `uvicorn` >= 0.34.0
+- `sqlalchemy` >= 2.0.38
 
 ## Getting Started
 
@@ -89,5 +89,64 @@ pip install -r requirements.txt
 ```bash
 uvicorn app.main:app --reload
 ```
+The FastAPI backend will be available at http://localhost:8000.
 
+4. **Run the Streamlit App:**
 
+Open a new terminal and run Streamlit.
+
+```bash
+streamlit run streamlit_app.py
+```
+
+The Streamlit app will be available at http://localhost:8501.
+
+### Running with Docker & Docker Compose
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/gurezende/FastAPI_Movie_Recommender.git
+   cd movie-recommender
+   ```
+
+2. **Build and Run Containers:**
+
+Make sure Docker and Docker Compose are installed, then run:
+
+```bash
+docker-compose up --build
+```
+
+This command will:
+
+* Build the FastAPI backend image using backend/Dockerfile.
+* Build the Streamlit frontend image using streamlit/Dockerfile.
+* Start a PostgreSQL container (or use SQLite if configured) for the backend.
+* Run the backend container. On first startup, the entrypoint.sh script in the backend will run sql_load.py to initialize the database.
+* Run the Streamlit container.
+
+Access the Services:
+ 
+FastAPI Backend: http://localhost:8000
+Streamlit Frontend: http://localhost:8501
+
+## API Endpoints
+The FastAPI backend exposes several endpoints. Some key endpoints are:
+
+GET /
+Returns a welcome message.
+
+GET /recommend/?movie=<movie_name>
+Returns movie recommendations for the given movie.
+
+POST /click/?movie_id=<movie_id>
+Registers a click for the specified movie recommendation.
+
+GET /click_stats/?movie_id=<movie_id>
+Returns the click percentage for the specified movie.
+
+POST /add_movie/
+Accepts a JSON payload to add a new movie. (Example payload: { "movie_id": 123, "title": "New Movie Title" })
+
+You can test these endpoints using the interactive Swagger docs at http://localhost:8000/docs.
