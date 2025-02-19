@@ -10,5 +10,5 @@ wheels/
 .venv
 
 # Folder
-/data_prep
-prepared.py
+data_prep
+data_prep/prepared.py

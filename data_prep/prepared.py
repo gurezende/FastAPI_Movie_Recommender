@@ -17,3 +17,8 @@ df['title'] = df['title'].str.lower()
 
 # drop header
 df.to_csv('./data/u.item', index=False, header=False, sep="|")
+
+'''
+This file is used to prepare the data once it comes from the MovieLens website
+It will remove the year from the movie title and strip white spaces
+'''
