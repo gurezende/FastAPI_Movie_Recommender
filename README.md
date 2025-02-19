@@ -16,7 +16,6 @@ It uses the MovieLens 100k dataset to generate movie recommendations based on us
   - [Running with Docker & Docker Compose](#running-with-docker--docker-compose)
 - [API Endpoints](#api-endpoints)
 - [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
 - [License](#license)
 - [About](#about)
 
@@ -140,7 +139,7 @@ The FastAPI backend exposes several endpoints. Some key endpoints are:
 `GET /`
 Returns a welcome message.
 
-``GET /recommend/?movie=<movie_name>`
+`GET /recommend/?movie=<movie_name>`
 Returns movie recommendations for the given movie.
 
 `POST /click/?movie_id=<movie_id>`
@@ -163,7 +162,7 @@ If you add a new movie but it doesn't appear in recommendations, the recommendat
 Ensure that the Streamlit app uses the correct API URL. In `streamlit_app.py`, set:
 
 ```python
-API_URL = os.getenv("API_URL", "http://backend:8000")
+API_URL = "http://backend:8000" 
 ```
 
 And confirm the service name in `docker-compose.yml` is set to `backend`.
