@@ -16,6 +16,18 @@ def load_data():
     
     return ratings_df, movies_df
 
+# Function to get movies list
+def get_movies_list():
+    """
+    Returns a list of movie titles.
+    """
+    # Load movies from the movies table
+    movies_df = pd.read_sql("SELECT DISTINCT(title) FROM movies", con=engine)
+    # Convert the DataFrame to a list of movie titles
+    movies_list = movies_df.values.flatten()
+    
+    return movies_list
+
 # Calculate cosine similarity matrix
 def create_similarity_matrix(ratings):
     # Create a pivot table with movies as rows and users as columns

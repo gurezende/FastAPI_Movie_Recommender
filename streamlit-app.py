@@ -1,6 +1,7 @@
 # imports
 import streamlit as st
 import requests
+from app.recommender import get_movies_list
 
 # Base URL for your FastAPI server
 API_URL = "http://127.0.0.1:8000"
@@ -8,8 +9,12 @@ API_URL = "http://127.0.0.1:8000"
 st.title("Movie Recommender")
 
 # Input for movie name and transform to lowercase
-movie_input = st.text_input("Enter a movie name:") 
-movie_input = movie_input.lower()
+movie_input = st.selectbox(label="Select a Movie", index=None,
+                           options=get_movies_list(),
+                           help="Select a movie to get recommendations") 
+
+if movie_input:
+    movie_input = movie_input.lower()
 
 # If user clicks "Get Recommendations"
 if st.button("Get Recommendations"):

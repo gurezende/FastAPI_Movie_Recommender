@@ -5,10 +5,7 @@ from app.models import Base, ClickStats, Movie, Rating #import models (table sch
 from app import recommender #import recommender system from recommender.py
 from app.schemas import MovieCreate #get MovieCreate for the ability to add new movies
 
-
-# Create database tables if they don't exist
-# Base.metadata.create_all(bind=engine)
-
+# Create app instance
 app = FastAPI(title="Movie Recommender API")
 
 # Dependency to get DB session for endpoints
