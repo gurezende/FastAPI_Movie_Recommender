@@ -211,7 +211,7 @@ Front-End --> Back-End --> Saving-to-DB
 <table>
   <tr>
     <td width="33%"><img src="img/frontend.png" alt="App Image"></td>
-    <td width="33%"><img src="img/backend1.png" alt="Backend1"></td>
+    <td width="33%"><img src="img/movie_recomm.gif" alt="App GIF"></td>
     <td width="33%"><img src="img/backend2.png" alt="Backend2"></td>
   </tr>
 </table>
