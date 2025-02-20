@@ -16,6 +16,7 @@ It uses the MovieLens 100k dataset to generate movie recommendations based on us
   - [Running with Docker & Docker Compose](#running-with-docker--docker-compose)
 - [API Endpoints](#api-endpoints)
 - [Troubleshooting](#troubleshooting)
+- [Images](#images)
 - [License](#license)
 - [About](#about)
 
@@ -205,3 +206,12 @@ flowchart TB
 
 Front-End --> Back-End --> Saving-to-DB
 ```
+
+## Images
+<table>
+  <tr>
+    <td width="33%"><img src="img/frontend.png" alt="App Image"></td>
+    <td width="33%"><img src="img/backend1.png" alt="Backend1"></td>
+    <td width="33%"><img src="img/backend2.png" alt="Backend2"></td>
+  </tr>
+</table>
